@@ -1,12 +1,21 @@
 import dotenv from 'dotenv'
-import ConnectDb from "./db/dbconnect.js";
+import ConnectDB from "./db/dbconnect.js";
+import { app } from './app.js';
 
 
 dotenv.config({
-    path:'./env'
+    path:'./.env'
 })
 
-ConnectDb()
+const Port=process.env.PORT||7000
+
+ConnectDB().then(()=>{
+    app.listen(Port,()=>{
+        console.log("lsitening to port ",Port)
+    })
+}).catch((error)=>{
+    console.log("Error",error)
+})
 
 
 //  const app=express()
